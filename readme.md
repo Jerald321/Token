@@ -22,14 +22,15 @@ Use the sample login :
 ## API Endpoints
 
 //  
---post(/api/v1/register)= create a new user
---post(/api/v1/login) = user login 
---post("/api/v1/logout") = user logout
---get("/api/v1/admin") = admin get all user data
+ ## post(/api/v1/register)= create a new user
+## post(/api/v1/login) = user login 
+## post(/api/v1/login) = user login 
+## post("/api/v1/logout") = user logout
+## get("/api/v1/admin") = admin get all user data
+## get("/api/v1/me") = user details 
 
 
--- get("/api/v1/me") = user details 
-
+//
 ## Table of Contents
 - [Features](#features)
 - [Tech Stack](#tech-stack)
