@@ -15,6 +15,21 @@ Use the sample login :
 
 [Postman Documentation URL](https://documenter.getpostman.com/view/39417794/2sAYBVirp3 )
 
+
+
+
+
+## API Endpoints
+
+//  
+--post(/api/v1/register)= create a new user
+--post(/api/v1/login) = user login 
+--post("/api/v1/logout") = user logout
+--get("/api/v1/admin") = admin get all user data
+
+
+-- get("/api/v1/me") = user details 
+
 ## Table of Contents
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -88,17 +103,7 @@ Both of these values were put under .gitignore concerning security.
 
 └── README.md        # Project documentation
 
-## API Endpoints
 
-//  
-route.post("/register", logincontroller.register)
-route.get("/admin", logincontroller.admin)
-route.post("/login", logincontroller.login)
-route.post("/logout", logincontroller.logout)
-
-
-route.get("/me" ,  auth.authverify, logincontroller.me)
-module.exports = route; 
 
 
 
