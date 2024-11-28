@@ -24,7 +24,7 @@ Use the sample login :
 //  
  ## post(/api/v1/register)= create a new user
 ## post(/api/v1/login) = user login 
-## post(/api/v1/login) = user login 
+
 ## post("/api/v1/logout") = user logout
 ## get("/api/v1/admin") = admin get all user data
 ## get("/api/v1/me") = user details 
