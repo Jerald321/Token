@@ -75,11 +75,11 @@ const logincontroller = {
       
          
 
-        // res.cookie("token", token , {httpOnly :true})
+        res.cookie("token", token , {httpOnly :true})
 
-        return res.status(200).json({ message: 'Login successful! Now try the various endpoints like users and me',token }); 
+        return res.status(200).json({ message: 'Login successful! Now try the various endpoints like users and me'}); 
          
-        //  return res.status(200).json({message :" login successfull"})
+         return res.status(200).json({message :" login successfull"})
 
         } catch (err) {
            res.status(400).json({message:err.mesage})
