@@ -77,7 +77,7 @@ const logincontroller = {
 
         res.cookie("token", token , {httpOnly :true})
 
-        return res.status(200).json({ message: 'Login successful! Now try the various endpoints like users and me'}); 
+        
          
          return res.status(200).json({message :" login successfull"})
 
