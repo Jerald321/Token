@@ -5,7 +5,7 @@ This project implements user authentication and authorization using Bearer token
 
 
 ## Render Deployment URL 
-[Render Deployment](https://token-8t63.onrender.com/api/v1/register)
+[Render Deployment](https://token-8t63.onrender.com)
 
 Use the sample login :
 
