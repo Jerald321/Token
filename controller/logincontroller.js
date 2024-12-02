@@ -4,6 +4,7 @@ const bcrypt =require("bcrypt")
 const jwt = require("jsonwebtoken");
 const app  = require("../app");
 require("dotenv").config();
+const nodemailer =require('nodemailer')
 
 
 
@@ -62,7 +63,11 @@ const logincontroller = {
 
         if(!verifyuser){
           return  res.status(400).json({ message:"This is a new user"})
+
+
         }
+
+        
 
         const uniquepassword = await bcrypt.compare(password, verifyuser.password)
 
@@ -75,7 +80,13 @@ const logincontroller = {
       
          
 
-        res.cookie("token", token , {httpOnly :true})
+        // res.cookie("token", token , {httpOnly :true})
+        res.cookie('token', token, {
+          httpOnly: true,
+          secure: true, // Ensure cookies are secure in production
+          sameSite: 'none', // Required for cross-origin requests
+        });
+
 
         
          
@@ -88,9 +99,15 @@ const logincontroller = {
     logout : async (req,res)=>{
         try {
          console.log("logout");
-         res.clearCookie('token');
+       
+         res.clearCookie('token', {
+          httpOnly: true
+          // secure: true, // Same as the one used when setting the cookie
+          // sameSite: 'none', // Same as the one used when setting the cookie
+        });
+        res.status(200).json({ message: 'Logout Successful' });
 
-         return res.status(200).json({message:"logout successfully"})
+        
         
         } catch (err) {
            res.status(400).json({message:err.message})
@@ -113,7 +130,86 @@ const logincontroller = {
         catch (err) {
           res.status(400).json({message : err.meaasge})
        }
+    },
+    forgetpassword :async (req,res)=>{
+      try {
+        console.log("forget");
+    console.log(req.body);
+    
+      const {email} =req.body
+      const  checkemail = await user.findOne({email:email})
+
+      if(!checkemail){
+        return res.status(400).json({mesage:"user not found"})
+      }
+
+      const token =Math.random().toString(26).slice(-8)
+      
+      console.log(token );
+      
+      checkemail.resetPasswordToken = token
+ checkemail.resetPasswordExpires = Date.now() + 120000000
+ console.log(checkemail.resetPasswordToken);
+ 
+ 
+  
+      await checkemail.save();
+
+
+      const transpoter  =nodemailer.createTransport({
+        service : "gmail",
+        auth :{
+          user :process.env.gmail,
+          pass :process.env.password
+        }
+
+      })
+
+      const composeemail = {
+       from :process.env.gmail,
+       to : checkemail.email,
+       subject :"password reset ",
+       text :`${token}`,
+
+      }   
+        
+      await transpoter.sendMail(composeemail)
+     return  res.status(200).json({ message: "Password reset email sent successfully!" });
+      } catch (err) {
+
+         res.status(400).json({message : err.meaasge})
+      }
+    },
+    setNewPassword: async (req, res) => {
+      try {
+        console.log('setNewPassword');
+        
+        const { token, newPassword } = req.body;
+    
+        if (!token || !newPassword) {
+          return res.status(400).json({ message: "Token and new password are required." });
+        }
+    
+        const users = await user.findOne({
+          resetPasswordToken: token,
+          resetPasswordExpires: { $gt: Date.now() }, // Ensure token is not expired
+        });
+    
+        if (!users) {
+          return res.status(400).json({ message: "Invalid or expired token." });
+        }
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        users.password = hashedPassword; // Hash password before saving (use bcrypt)
+        users.resetPasswordToken = undefined;
+        users.resetPasswordExpires = undefined;
+        await users.save();
+    
+        res.status(200).json({ message: "Password updated successfully!" });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
     }
+    
 }
 
 
