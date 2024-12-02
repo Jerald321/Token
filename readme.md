@@ -13,7 +13,7 @@ Use the sample login :
 
 ## Postman Documentation URL
 
-[Postman Documentation URL](https://documenter.getpostman.com/view/39417794/2sAYBVirp3 )
+[Postman Documentation URL](https://documenter.getpostman.com/view/39417794/2sAYBVirp3)
 
 
 
