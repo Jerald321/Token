@@ -9,7 +9,10 @@ This project implements user authentication and authorization using Bearer token
 
 Use the sample login :
 
+## sample login
 
+email:rjerald6803@gmail.com
+password:123
 
 ## Postman Documentation URL
 
