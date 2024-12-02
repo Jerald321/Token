@@ -28,6 +28,8 @@ Use the sample login :
 ## post("/api/v1/logout") = user logout
 ## get("/api/v1/admin") = admin get all user data
 ## get("/api/v1/me") = user details 
+## get("/api/v1/forgetpassword") = forget password 
+## get("/api/v1/setNewPassword") = reset password 
 
 
 //
