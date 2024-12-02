@@ -13,7 +13,7 @@ app.use(express.json());
 // app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const allowedOrigins = ['http://localhost:5173, https://fanciful-twilight-9f0aa0.netlify.app']
+const allowedOrigins = ['https://fanciful-twilight-9f0aa0.netlify.app']
 
 
 app.use(
